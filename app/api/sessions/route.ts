@@ -1,0 +1,3 @@
+import {NextRequest,NextResponse} from "next/server";import {db} from "@/lib/db";import {authorized,deny} from "@/lib/auth";
+export async function POST(req:NextRequest){if(!authorized(req))return deny();const body=await req.json();const doc={...body,createdAt:new Date()};const r=await (await db()).collection("sessions").insertOne(doc);return NextResponse.json({_id:String(r.insertedId),...doc},{status:201});}
+export async function GET(req:NextRequest){if(!authorized(req))return deny();const rows=await (await db()).collection("sessions").find({}).sort({createdAt:-1}).limit(100).toArray();return NextResponse.json(rows.map(x=>({...x,_id:String(x._id)})));}
