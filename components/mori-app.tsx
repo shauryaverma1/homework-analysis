@@ -41,7 +41,7 @@ const dailyQuotes=[
 "One day, all these little study sessions will tell a beautiful story."
 ];
 function getDailyQuote(){const now=new Date();const start=new Date(now.getFullYear(),0,0);const day=Math.floor((now.getTime()-start.getTime())/86400000);return dailyQuotes[(day-1)%dailyQuotes.length];}
-function spotifyEmbed(value:string){const clean=value.trim();if(!clean)return "";const match=clean.match(/open\\.spotify\\.com\\/(track|album|playlist|episode|show)\\/([A-Za-z0-9]+)/);if(match)return "https://open.spotify.com/embed/"+match[1]+"/"+match[2]+"?utm_source=generator";const uri=clean.match(/spotify:(track|album|playlist|episode|show):([A-Za-z0-9]+)/);return uri?"https://open.spotify.com/embed/"+uri[1]+"/"+uri[2]+"?utm_source=generator":"";}
+function spotifyEmbed(value:string){const clean=value.trim();if(!clean)return "";const match=clean.match(/open\.spotify\.com\/(track|album|playlist|episode|show)\/([A-Za-z0-9]+)/);if(match)return "https://open.spotify.com/embed/"+match[1]+"/"+match[2]+"?utm_source=generator";const uri=clean.match(/spotify:(track|album|playlist|episode|show):([A-Za-z0-9]+)/);return uri?"https://open.spotify.com/embed/"+uri[1]+"/"+uri[2]+"?utm_source=generator":"";}
 const readStore=<T,>(key:string,fallback:T):T=>{try{const value=localStorage.getItem(key);return value?JSON.parse(value) as T:fallback}catch{return fallback}};
 export default function MoriApp(){
  const [tab,setTab]=useState("home"),[tasks,setTasks]=useState<Task[]>(initialTasks),[notes,setNotes]=useState<Note[]>([]),[cards,setCards]=useState<Card[]>(samples);
